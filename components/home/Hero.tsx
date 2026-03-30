@@ -9,7 +9,10 @@ export default function Hero() {
         loop
         className="absolute inset-0 h-full w-full object-cover opacity-60"
       >
-        <source src="/videos/output-17s.mp4" type="video/mp4" />
+        <source
+          src="https://res.cloudinary.com/dgajrjjz8/video/upload/v1774885243/output-17s_xif10a.mp4"
+          type="video/mp4"
+        />
         {/* Ajoute une image de fallback pour le chargement ou les vieux navigateurs */}
       </video>
 
