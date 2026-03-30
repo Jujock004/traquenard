@@ -8,10 +8,9 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 flex h-full w-full items-center justify-center bg-white px-4 dark:bg-black">
-      {/* ...existing code... */}
       <a href="#">
         <Image
-          className="z-10 translate-y-4 dark:invert"
+          className="z-10 translate-y-4 dark:invert hover-shake"
           src="/logos/Fichier 5@4x.png"
           alt="Logo"
           width={300}
