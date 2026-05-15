@@ -1,33 +1,40 @@
 export default function Hero() {
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-black">
-      {/* La Vidéo Background */}
-      <video
-        autoPlay
-        muted
-        playsInline
-        loop
-        className="absolute inset-0 h-full w-full object-cover opacity-60"
-      >
+    <section className="dykt-hero">
+      {/* Vidéo background */}
+      <video autoPlay muted playsInline loop className="dykt-hero__video">
         <source
           src="https://res.cloudinary.com/dgajrjjz8/video/upload/v1774885243/output-17s_xif10a.mp4"
           type="video/mp4"
         />
-        {/* Ajoute une image de fallback pour le chargement ou les vieux navigateurs */}
       </video>
 
-      {/* Le Contenu (Texte en Avant Garde) */}
-      <div className="relative z-10 flex h-full flex-col justify-center px-6 md:px-12">
-        <h1 className="font-avantgarde text-14xl font-bold uppercase tracking-tighter text-white md:text-8xl lg:text-[10vw] leading-[0.9]">
-          From hip-hop <br /> to <span className="text-yellow-500">techno</span>
+      {/* Grain */}
+      <div className="dykt-hero__grain" aria-hidden="true" />
+
+      {/* Vignette */}
+      <div className="dykt-hero__vignette" aria-hidden="true" />
+
+      {/* Contenu */}
+      <div className="dykt-hero__content">
+        <p className="dykt-hero__eyebrow">Toulouse — collectif</p>
+        <h1 className="dykt-hero__title">
+          <span className="line1">From hip-hop</span>
+          <span className="line2 text-yellow-500">to techno</span>
         </h1>
-        <p className="font-avantgarde mt-4 text-lg text-white/80 md:text-2xl uppercase">
-          Sound / Esthetic / Chaos
+        <p className="dykt-hero__sub">
+          Sound&nbsp;&nbsp;/&nbsp;&nbsp;Aesthetic&nbsp;&nbsp;/&nbsp;&nbsp;Chaos
         </p>
       </div>
 
-      {/* Overlay de grain ou de texture (optionnel pour la DA) */}
-      <div className="absolute inset-0 z-5 pointer-events-none bg-[url('/noise.png')] opacity-[0.03]"></div>
+      {/* Scroll indicator */}
+      <div className="dykt-hero__scroll" aria-hidden="true">
+        <span>scroll</span>
+        <div className="dykt-hero__scroll-line" />
+      </div>
+
+      {/* Damier bas */}
+      <div className="dykt-hero__checker" aria-hidden="true" />
     </section>
   );
 }

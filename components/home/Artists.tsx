@@ -40,9 +40,6 @@ export default function Artists() {
 
               {/* Texte (ITC Avant Garde) */}
               <div className="absolute inset-x-0 bottom-0 p-4 md:p-6 z-20 flex flex-col justify-end h-full">
-                <p className="text-[10px] md:text-xs uppercase tracking-widest text-zinc-400 group-hover:text-white transition-colors">
-                  {member.aka}
-                </p>
                 <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-tighter leading-none mt-1 break-words">
                   {member.name}
                 </h3>

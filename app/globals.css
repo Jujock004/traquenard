@@ -66,3 +66,207 @@ body {
     transform: translate(1px, -2px) rotate(-2deg);
   }
 }
+
+/* Hero section */
+.dykt-hero {
+  position: relative;
+  height: 100svh;
+  min-height: 600px;
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+/* Video */
+.dykt-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+}
+
+/* Grain overlay */
+.dykt-hero__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+}
+
+/* Vignette */
+.dykt-hero__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+}
+
+/* Content */
+.dykt-hero__content {
+  position: relative;
+  z-index: 10;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 1.5rem 6rem;
+}
+
+@media (min-width: 768px) {
+  .dykt-hero__content {
+    padding: 0 3rem 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dykt-hero__content {
+    padding: 0 4rem 6rem;
+  }
+}
+
+/* Eyebrow */
+.dykt-hero__eyebrow {
+  font-family: var(--font-avantgarde), ui-sans-serif, system-ui;
+  font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 0 0.6rem 0.2rem;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: heroFadeUp 0.8s ease 0.3s forwards;
+}
+
+/* H1 */
+.dykt-hero__title {
+  font-family: var(--font-avantgarde), ui-sans-serif, system-ui;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+}
+
+.dykt-hero__title .line1 {
+  display: block;
+  font-size: clamp(3.5rem, 9vw, 8rem);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroFadeUp 0.8s ease 0.5s forwards;
+}
+
+.dykt-hero__title .line2 {
+  display: block;
+  font-size: clamp(4.5rem, 12vw, 11rem);
+  margin-left: clamp(1rem, 4vw, 4rem);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroFadeUp 0.8s ease 0.65s forwards;
+}
+
+/* Subtitle */
+.dykt-hero__sub {
+  font-family: var(--font-avantgarde), ui-sans-serif, system-ui;
+  font-size: clamp(0.7rem, 1.6vw, 0.95rem);
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 1.2rem 0 0 0.2rem;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: heroFadeUp 0.8s ease 0.85s forwards;
+}
+
+/* Scroll indicator */
+.dykt-hero__scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: heroFadeUp 0.8s ease 1.2s forwards;
+}
+
+.dykt-hero__scroll span {
+  font-family: var(--font-avantgarde), ui-sans-serif, system-ui;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.dykt-hero__scroll-line {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.dykt-hero__scroll-line::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  animation: scrollLine 1.8s ease-in-out 1.5s infinite;
+}
+
+/* Damier bottom transition */
+.dykt-hero__checker {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 14px;
+  z-index: 10;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #ffffff 0px,
+    #ffffff 14px,
+    #000000 14px,
+    #000000 28px
+  );
+  opacity: 0.18;
+}
+
+/* Animations */
+@keyframes heroFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrollLine {
+  0% {
+    top: -100%;
+  }
+  50% {
+    top: 100%;
+  }
+  100% {
+    top: 100%;
+  }
+}
