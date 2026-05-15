@@ -18,8 +18,8 @@ export default function Hero() {
 
       {/* Le Contenu (Texte en Avant Garde) */}
       <div className="relative z-10 flex h-full flex-col justify-center px-6 md:px-12">
-        <h1 className="font-avantgarde text-6xl font-bold uppercase tracking-tighter text-white md:text-8xl lg:text-[10vw] leading-[0.9]">
-          From hip-hop <br /> to techno
+        <h1 className="font-avantgarde text-14xl font-bold uppercase tracking-tighter text-white md:text-8xl lg:text-[10vw] leading-[0.9]">
+          From hip-hop <br /> to <span className="text-yellow-500">techno</span>
         </h1>
         <p className="font-avantgarde mt-4 text-lg text-white/80 md:text-2xl uppercase">
           Sound / Esthetic / Chaos
