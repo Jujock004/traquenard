@@ -1,0 +1,231 @@
+.dykt-artists {
+          position: relative;
+          background: #000000;
+          padding: 6rem 1.5rem 7rem;
+          overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+          .dykt-artists { padding: 7rem 3rem 8rem; }
+        }
+        @media (min-width: 1024px) {
+          .dykt-artists { padding: 8rem 4rem 9rem; }
+        }
+
+        .dykt-artists::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+          background-size: 200px 200px;
+          opacity: 0.06;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .dykt-artists__checker-top {
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 14px;
+          background-image: repeating-linear-gradient(
+            90deg,
+            #ffffff 0px, #ffffff 14px,
+            #000000 14px, #000000 28px
+          );
+          opacity: 0.12;
+          z-index: 1;
+        }
+
+        .dykt-artists__num {
+          position: absolute;
+          top: 3rem;
+          left: -0.5rem;
+          font-family: var(--font-avantgarde), ui-sans-serif, system-ui;
+          font-weight: 700;
+          font-size: clamp(8rem, 20vw, 18rem);
+          line-height: 1;
+          color: transparent;
+          -webkit-text-stroke: 1px rgba(255,255,255,0.05);
+          pointer-events: none;
+          user-select: none;
+          z-index: 0;
+          letter-spacing: -0.04em;
+        }
+
+        .dykt-artists__inner {
+          position: relative;
+          z-index: 2;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .dykt-artists__header {
+          margin-bottom: 3.5rem;
+        }
+
+        .dykt-artists__eyebrow {
+          font-family: var(--font-avantgarde), ui-sans-serif, system-ui;
+          font-size: 0.7rem;
+          font-weight: 700;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          color: #f5c800;
+          margin: 0 0 0.6rem 0;
+        }
+
+        .dykt-artists__title {
+          font-family: var(--font-playfair), Georgia, serif;
+          font-weight: 900;
+          font-style: italic;
+          font-size: clamp(3rem, 8vw, 7rem);
+          line-height: 0.92;
+          letter-spacing: -0.02em;
+          color: #ffffff;
+          margin: 0;
+        }
+
+        .dykt-artists__divider {
+          height: 1px;
+          background: #ffffff;
+          opacity: 0.08;
+          margin-top: 2rem;
+        }
+
+        .dykt-artists__grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          grid-template-rows: repeat(4, 280px);
+          gap: 2px;
+        }
+
+        @media (min-width: 768px) {
+          .dykt-artists__grid {
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 360px);
+            gap: 2px;
+          }
+        }
+
+        /* isolation: isolate empêche le texte de sortir de la carte rotée */
+        .artist-card {
+          position: relative;
+          overflow: hidden;
+          background: #0a0a0a;
+          isolation: isolate;
+          transition: z-index 0s;
+        }
+
+        .artist-card:hover { z-index: 10; }
+
+        .artist-card__img-wrap {
+          position: absolute;
+          inset: 0;
+          transition: transform 0.7s ease;
+          filter: grayscale(100%);
+        }
+
+        .artist-card:hover .artist-card__img-wrap {
+          transform: scale(1.05);
+        }
+
+        .artist-card__overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            to top,
+            rgba(0,0,0,0.92) 0%,
+            rgba(0,0,0,0.2) 55%,
+            transparent 100%
+          );
+          z-index: 1;
+        }
+
+        .artist-card__info {
+          position: absolute;
+          bottom: 0; left: 0; right: 0;
+          padding: 1.25rem 1.5rem;
+          z-index: 2;
+        }
+
+        .artist-card__role {
+          font-family: var(--font-avantgarde), ui-sans-serif, system-ui;
+          font-size: 0.58rem;
+          font-weight: 700;
+          letter-spacing: 0.32em;
+          text-transform: uppercase;
+          color: #f5c800;
+          display: block;
+          margin-bottom: 0.3rem;
+        }
+
+        .artist-card__name {
+          font-family: var(--font-avantgarde), ui-sans-serif, system-ui;
+          font-weight: 700;
+          font-size: clamp(1.5rem, 3vw, 2.2rem);
+          text-transform: uppercase;
+          letter-spacing: -0.02em;
+          line-height: 0.9;
+          color: #ffffff;
+          margin: 0;
+        }
+
+        .artist-card::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border: 1px solid rgba(255,255,255,0);
+          z-index: 3;
+          transition: border-color 0.3s ease;
+          pointer-events: none;
+        }
+
+        .artist-card:hover::after {
+          border-color: rgba(255,255,255,0.15);
+        }
+
+        .artist-empty {
+          position: relative;
+          overflow: hidden;
+          background-color: #000000;
+          background-image:
+            repeating-linear-gradient(
+              45deg,
+              rgba(255,255,255,0.03) 0px,
+              rgba(255,255,255,0.03) 1px,
+              transparent 1px,
+              transparent 50%
+            ),
+            repeating-linear-gradient(
+              -45deg,
+              rgba(255,255,255,0.03) 0px,
+              rgba(255,255,255,0.03) 1px,
+              transparent 1px,
+              transparent 50%
+            );
+          background-size: 28px 28px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .artist-empty__label {
+          font-family: var(--font-avantgarde), ui-sans-serif, system-ui;
+          font-weight: 700;
+          font-size: clamp(3rem, 6vw, 5rem);
+          color: transparent;
+          -webkit-text-stroke: 1px rgba(255,255,255,0.06);
+          letter-spacing: -0.04em;
+          user-select: none;
+        }
+
+        @media (max-width: 767px) {
+          .cell-0 { order: 1; }
+          .cell-1 { order: 2; }
+          .cell-2 { order: 4; }
+          .cell-3 { order: 3; }
+          .cell-4 { order: 5; }
+          .cell-5 { order: 6; }
+          .cell-6 { order: 8; }
+          .cell-7 { order: 7; }
+        }

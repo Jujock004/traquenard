@@ -1,61 +1,160 @@
-// components/TeamMosaic.tsx
+"use client";
+
 import Image from "next/image";
-import { teamMembers } from "@/data/team"; // Importe tes données
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Playfair_Display } from "next/font/google";
+import { teamMembers, TeamMember } from "@/data/team";
+import Reveal from "@/components/Reveal";
+import SplitText from "@/components/SplitText";
+import "@/styles/artists.css";
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["900"],
+  style: ["italic"],
+  variable: "--font-playfair",
+});
+
+type PhotoCell = { type: "photo"; member: TeamMember };
+type EmptyCell = { type: "empty"; label: string };
+type GridCell = PhotoCell | EmptyCell;
+
+function buildCheckerGrid(members: TeamMember[]): GridCell[] {
+  return [
+    { type: "photo", member: members[0] },
+    { type: "empty", label: "01" },
+    { type: "photo", member: members[1] },
+    { type: "empty", label: "02" },
+    { type: "empty", label: "03" },
+    { type: "photo", member: members[2] },
+    { type: "empty", label: "04" },
+    { type: "photo", member: members[3] },
+  ];
+}
 
 export default function Artists() {
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        grid.querySelectorAll(".artist-card"),
+        { opacity: 0, y: 50, scale: 0.92 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          stagger: 0.15,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: grid,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        },
+      );
+
+      gsap.fromTo(
+        grid.querySelectorAll(".artist-empty"),
+        { opacity: 0 },
+        {
+          opacity: 1,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: grid,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        },
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  const cells = buildCheckerGrid(teamMembers);
+
   return (
-    <section className="bg-black text-white py-24 px-4 md:px-10 font-avantgarde border-t border-zinc-900">
-      <div className="max-w-[1600px] mx-auto">
-        <div className="mb-16 border-b border-zinc-900 pb-6 overflow-hidden">
-          <h2 className="text-sm uppercase tracking-[0.3em] text-zinc-600 mb-2">
-            The Collective
-          </h2>
-          <p className="text-5xl md:text-7xl font-bold uppercase tracking-tighter leading-none">
-            Djs/ <span className="text-zinc-800">MCs</span>
-          </p>
+    <section className={`dykt-artists ${playfair.variable}`}>
+      <div className="dykt-artists__checker-top" aria-hidden="true" />
+
+      <Reveal
+        animation="fadeIn"
+        start="top bottom"
+        scrub
+        className="dykt-artists__num"
+      >
+        02
+      </Reveal>
+
+      <div className="dykt-artists__inner">
+        <div className="dykt-artists__header">
+          <Reveal animation="fadeUp" duration={0.6}>
+            <p className="dykt-artists__eyebrow">Le collectif</p>
+          </Reveal>
+
+          <SplitText
+            as="h2"
+            className="dykt-artists__title"
+            duration={1}
+            start="top 88%"
+          >
+            Les artistes
+          </SplitText>
+
+          <Reveal animation="slideLeft" duration={0.8} delay={0.2}>
+            <div className="dykt-artists__divider" />
+          </Reveal>
         </div>
 
-        {/* La Grille Mosaïque "Chaos" */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[220px] md:auto-rows-[280px]">
-          {teamMembers.map((member) => (
-            <div
-              key={member.id}
-              className={`relative bg-zinc-950 border border-zinc-900 overflow-hidden group 
-                         ${member.gridClass} ${member.rotation} ${member.mobileOrder}
-                         hover:z-30 transition-all duration-500 hover:border-white/20`}
-            >
-              {/* Image avec effet de zoom au hover */}
-              <div className="absolute inset-0 z-0 transition-transform duration-700 ease-out group-hover:scale-105">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  fill
-                  className="object-cover opacity-70 group-hover:opacity-100 transition-opacity"
-                  sizes="(max-w-768px) 50vw, 25vw"
-                />
+        <div className="dykt-artists__grid" ref={gridRef}>
+          {cells.map((cell, i) => {
+            if (cell.type === "photo") {
+              const { member } = cell;
+              return (
+                <div
+                  key={`photo-${member.id}`}
+                  className={`artist-card cell-${i}`}
+                  style={{ transform: `rotate(${member.rotation}deg)` }}
+                >
+                  <div className="artist-card__img-wrap">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      className="object-cover"
+                      style={{ opacity: 0.75 }}
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                    />
+                  </div>
+                  <div className="artist-card__overlay" />
+                  <div className="artist-card__info">
+                    <span className="artist-card__role">{member.role}</span>
+                    <h3 className="artist-card__name">{member.name}</h3>
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <div
+                key={`empty-${i}`}
+                className={`artist-empty cell-${i}`}
+                aria-hidden="true"
+              >
+                <span className="artist-empty__label">{cell.label}</span>
               </div>
-
-              {/* Overlay de dégradé pour la lisibilité du texte */}
-              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent z-10" />
-
-              {/* Texte (ITC Avant Garde) */}
-              <div className="absolute inset-x-0 bottom-0 p-4 md:p-6 z-20 flex flex-col justify-end h-full">
-                <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-tighter leading-none mt-1 break-words">
-                  {member.name}
-                </h3>
-              </div>
-
-              {/* Effet visuel au hover (optionnel) */}
-              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-15" />
-            </div>
-          ))}
-
-          {/* Case "Placeholder" ou "Call to Action" pour remplir le chaos */}
-          <div className="col-span-1 row-span-1 bg-zinc-900/50 border border-dashed border-zinc-800 flex items-center justify-center p-6 text-center rotate-[-3deg] md:translate-y-[-20%]">
-            <p className="text-xs text-zinc-700 uppercase tracking-widest">
-              More Artists <br /> Coming Soon
-            </p>
-          </div>
+            );
+          })}
         </div>
       </div>
     </section>

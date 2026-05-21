@@ -1,36 +1,38 @@
-export const teamMembers = [
+export type TeamMember = {
+  id: number;
+  name: string;
+  role: string;
+  image: string;
+  rotation: number;
+};
+
+export const teamMembers: TeamMember[] = [
   {
     id: 1,
     name: "Jazzy Vic",
+    role: "DJ",
     image: "/images/jazzy.jpg",
-    gridClass: "col-span-2 row-span-2 md:col-span-2 md:row-span-3",
-    rotation: "rotate-[-1deg]",
-    mobileOrder: "order-1",
+    rotation: -1.5,
   },
   {
     id: 2,
     name: "SFK",
+    role: "DJ",
     image: "/images/sfk.jpg",
-    gridClass:
-      "col-span-1 row-span-1 md:col-span-1 md:row-span-2 md:translate-y-12",
-    rotation: "rotate-[2deg]",
-    mobileOrder: "order-3",
+    rotation: 1.5,
   },
   {
     id: 3,
     name: "Tsong",
+    role: "DJ",
     image: "/images/tsong.jpg",
-    gridClass: "col-span-1 row-span-2 md:col-span-1 md:row-span-3",
-    rotation: "rotate-[-2deg]",
-    mobileOrder: "order-2",
+    rotation: -1,
   },
   {
     id: 4,
     name: "Paulo",
-    image: "/images/sfk.jpg",
-    gridClass:
-      "col-span-2 row-span-1 md:col-span-2 md:row-span-2 md:translate-x-[-10%]",
-    rotation: "rotate-[1deg]",
-    mobileOrder: "order-4",
+    role: "DJ",
+    image: "/images/paulo.jpg",
+    rotation: 2,
   },
 ];

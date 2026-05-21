@@ -1,19 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import localFont from "next/font/local";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import ScrollProvider from "@/components/ScrollProvider";
 
 const avantGarde = localFont({
   src: [
@@ -48,9 +38,11 @@ export default function RootLayout({
       className={`${avantGarde.variable} ${avantGarde.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Header />
-        {children}
-        <Footer />
+        <ScrollProvider>
+          <Header />
+          {children}
+          <Footer />
+        </ScrollProvider>
       </body>
     </html>
   );

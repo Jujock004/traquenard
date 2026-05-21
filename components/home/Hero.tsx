@@ -1,3 +1,5 @@
+import "@/styles/manifeste.css";
+
 export default function Hero() {
   return (
     <section className="dykt-hero">
